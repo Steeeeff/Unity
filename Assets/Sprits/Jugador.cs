@@ -8,6 +8,8 @@ public class Jugador : MonoBehaviour
     public float potenciaSalto;
     private Rigidbody2D rigidbody2D;
     private Animator animator;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +28,15 @@ public class Jugador : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
+     {
         if (collision.gameObject.tag == "Suelo")
         {
             animator.SetBool("Saltando", false);
+        }
+        else if (collision.gameObject.tag == "Square")
+        {
+            //Contador
+            gameManager.AumentarContador();
         }
 
         // cuando colisiono

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,11 +14,17 @@ public class GameManager : MonoBehaviour
     public float velocidad = 2;
     public GameObject piedrap;
     public GameObject piedrag;
-    public List<GameObject> obstaculos;
+    public GameObject Square;
+    public List<Tuple<GameObject,GameObject>> obstaculos;
     public bool finJuego = false;
     public bool start = false;
     public GameObject menuInicio;
     public GameObject menuFin;
+    public GameObject textContador;
+    private int puntuacion = 0;
+    private TMP_Text TextMeshContador;
+    public void AumentarContador() => TextMeshContador.text = puntuacion++.ToString();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +32,14 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i<21; i++){
             columnas.Add(Instantiate(columna, new Vector2(-10 + i,-3), Quaternion.identity));
         }
+        //Iniciamos contador
+        TextMeshContador = textContador.GetComponent<TMP_Text>();
+        TextMeshContador.text = puntuacion.ToString();
 
         //inserto piedras
-        obstaculos.Add(Instantiate(piedrap, new Vector2(10,-2), Quaternion.identity));
-        obstaculos.Add(Instantiate(piedrag, new Vector2(16,-2), Quaternion.identity));
-
+        obstaculos = new List<Tuple<GameObject, GameObject>>();
+        obstaculos.Add(new Tuple<GameObject,GameObject>(Instantiate(Square, new Vector2(10,-1), Quaternion.identity),Instantiate(piedrag, new Vector2(10,-2), Quaternion.identity)));
+        obstaculos.Add(new Tuple<GameObject,GameObject>(Instantiate(Square, new Vector2(16,-1), Quaternion.identity),Instantiate(piedrap, new Vector2(16,-2), Quaternion.identity)));
 
     }
 
@@ -55,6 +66,7 @@ public class GameManager : MonoBehaviour
         if (start == true && finJuego == false){
             menuInicio.SetActive(false);
 
+
             fondo.material.mainTextureOffset = fondo.material.mainTextureOffset + new Vector2(0.02f, 0) * Time.deltaTime;
         //muevo el escenario
             for (int i = 0; i<columnas.Count; i++){
@@ -67,12 +79,14 @@ public class GameManager : MonoBehaviour
 
         //mover las piedras
             for (int i = 0; i<obstaculos.Count; i++){
-
-                if(obstaculos[i].transform.position.x <= -10){
-                    float obstaculo_random = Random.Range(11,18);
-                    obstaculos[i].transform.position = new Vector3(obstaculo_random, -2, 0);
+                var obstaculo = obstaculos[i];
+                if(obstaculo.Item1.transform.position.x <= -10){
+                    float obstaculo_random = UnityEngine.Random.Range(11,18);
+                    obstaculo.Item1.transform.position = new Vector3(obstaculo_random, -1, 0);
+                    obstaculo.Item2.transform.position = new Vector3(obstaculo_random, -2, 0);
                 }
-                obstaculos[i].transform.position = obstaculos[i].transform.position + new Vector3(-1,0,0) * Time.deltaTime * velocidad;
+                obstaculo.Item1.transform.position = obstaculo.Item1.transform.position + new Vector3(-1,0,0) * Time.deltaTime * velocidad;
+                obstaculo.Item2.transform.position = obstaculo.Item2.transform.position + new Vector3(-1,0,0) * Time.deltaTime * velocidad;
             } 
         }
 
