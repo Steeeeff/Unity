@@ -54,8 +54,9 @@ public class GameManager : MonoBehaviour
         // cuando empiezo el juego
         if (start == true && finJuego == false){
             menuInicio.SetActive(false);
-
+            
             fondo.material.mainTextureOffset = fondo.material.mainTextureOffset + new Vector2(0.02f, 0) * Time.deltaTime;
+            
         //muevo el escenario
             for (int i = 0; i<columnas.Count; i++){
 
