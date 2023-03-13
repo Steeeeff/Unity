@@ -9,6 +9,7 @@ TagManager:
   - Musica
   - Contador
   - ContadorUI
+  - pRUEBA
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class Jugador : MonoBehaviour
     public float potenciaSalto;
     private Rigidbody2D rigidbody2D;
     private Animator animator;
-    
+    private bool puedeSaltar;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,9 @@ public class Jugador : MonoBehaviour
     void Update()
     {
         //si se pulsa alguna tecla
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space) && puedeSaltar)
+        {
+            puedeSaltar = false;
             animator.SetBool("Saltando", true);
             rigidbody2D.AddForce(new Vector2(0, potenciaSalto));
         }
@@ -32,16 +34,21 @@ public class Jugador : MonoBehaviour
         if (collision.gameObject.tag == "Suelo")
         {
             animator.SetBool("Saltando", false);
-        }
-        else if (collision.gameObject.tag == "Square")
-        {
-            //Contador
-            gameManager.AumentarContador();
+            puedeSaltar = true;
         }
 
         // cuando colisiono
         if (collision.gameObject.tag == "Obstaculo"){
-            gameManager.finJuego = true;
+               gameManager.finJuego = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Contador")
+        {
+            //Contador
+            gameManager.AumentarContador();
         }
     }
 }

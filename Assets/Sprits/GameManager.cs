@@ -23,7 +23,13 @@ public class GameManager : MonoBehaviour
     public GameObject textContador;
     private int puntuacion = 0;
     private TMP_Text TextMeshContador;
-    public void AumentarContador() => TextMeshContador.text = puntuacion++.ToString();
+    private string puntuacionText => "PUNTUACION";
+
+    public void AumentarContador()
+    {
+        puntuacion++;
+        TextMeshContador.text = puntuacionText + " " + puntuacion.ToString();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +40,7 @@ public class GameManager : MonoBehaviour
         }
         //Iniciamos contador
         TextMeshContador = textContador.GetComponent<TMP_Text>();
-        TextMeshContador.text = puntuacion.ToString();
+        TextMeshContador.text = puntuacionText + " " + puntuacion.ToString();
 
         //inserto piedras
         obstaculos = new List<Tuple<GameObject, GameObject>>();

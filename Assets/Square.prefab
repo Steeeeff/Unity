@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2219963079008979423}
   - component: {fileID: 2219963079008979420}
   - component: {fileID: -5185669062929874554}
+  - component: {fileID: -6933644204939895840}
   m_Layer: 0
   m_Name: Square
   m_TagString: Contador
@@ -111,3 +112,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-6933644204939895840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2219963079008979421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c22c366a4016b24aba59d8b9ad4b8af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
